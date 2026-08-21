@@ -4,7 +4,7 @@
 
 # Personal Testing Or Directories to not Push to git
 test/**
-z-nogit/**
+z-nogit**
 
 
 # Environment Variables via Dot-Env Loads
