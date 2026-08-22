@@ -8,7 +8,7 @@ class GuruDividendHistory:
     """Class for Gurufocus Dividend History Output"""
     token: str
     ticker: str
-    ddr_list: dict = field(init=False, repr=False, default=None)
+    ddr_list: list = field(init=False, repr=False, default=None)
     ddr_df: object = field(init=False, repr=False, default=None)
 
 
