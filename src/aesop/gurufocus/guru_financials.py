@@ -90,36 +90,3 @@ class GuruFinancialHistory:
 
         return df_0
 
-
-@dataclass(init=True, repr=True, eq=True)
-class GuruOperatingData:
-    """Class for Gurufocus Operating Data Output"""
-    token: str
-    ticker: str
-    ddr_dict: dict = field(init=False, repr=False, default=None)
-
-    def _guru_api(self):
-
-        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/financials'
-
-        try:
-
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
-
-            return response.json()
-
-        except requests.exceptions.Timeout:
-            print(f"Request timed out for ticker {self.ticker}")
-
-        except requests.exceptions.HTTPError as e:
-            print(f"HTTP error for ticker {self.ticker}: {e}")
-
-        except requests.exceptions.RequestException as e:
-            print(f"Request failed for ticker {self.ticker}: {e}")
-
-        except ValueError:
-            print(f"Invalid JSON response for ticker {self.ticker}")
-
-        return {}
-
