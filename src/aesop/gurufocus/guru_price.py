@@ -1,4 +1,4 @@
-import requests
+import aesop as ap
 import pandas as pd
 from dataclasses import dataclass, field
 
@@ -21,25 +21,8 @@ class GuruPriceHistory:
 
         url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/price'
 
-        try:
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
-
-            return response.json()
-
-        except requests.exceptions.Timeout:
-            print(f"Request timed out for ticker {self.ticker}")
-
-        except requests.exceptions.HTTPError as e:
-            print(f"HTTP error for ticker {self.ticker}: {e}")
-
-        except requests.exceptions.RequestException as e:
-            print(f"Request failed for ticker {self.ticker}: {e}")
-
-        except ValueError:
-            print(f"Invalid JSON response for ticker {self.ticker}")
-
-        return {}
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
 
 
     def _raw_df(self):
