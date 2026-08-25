@@ -71,3 +71,97 @@ class GuruStockSummaryData:
         data = self.ddr_dict['summary']['estimate']
         return data
 
+
+@dataclass(init=True, repr=True, eq=True)
+class GuruOperatingData:
+    """Class for Gurufocus Operating Data Output"""
+    token: str
+    ticker: str
+    ddr_dict: dict = field(init=False, repr=False, default=None)
+
+    def __post_init__(self):
+        self.ddr_dict = self._guru_api()
+
+
+    def _guru_api(self):
+
+        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/operating_data'
+
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
+
+
+@dataclass(init=True, repr=True, eq=True)
+class GuruStockFilingsData:
+    """Class for Gurufocus Stock Filings Data Output"""
+    token: str
+    ticker: str
+    ddr_dict: dict = field(init=False, repr=False, default=None)
+
+    def __post_init__(self):
+        self.ddr_dict = self._guru_api()
+
+
+    def _guru_api(self):
+
+        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/filings'
+
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
+
+
+@dataclass(init=True, repr=True, eq=True)
+class GuruStockSegmentsData:
+    """Class for Gurufocus Stock Segments Data Output"""
+    token: str
+    ticker: str
+    ddr_dict: dict = field(init=False, repr=False, default=None)
+
+    def __post_init__(self):
+        self.ddr_dict = self._guru_api()
+
+
+    def _guru_api(self):
+
+        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/segments_data'
+
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
+
+
+@dataclass(init=True, repr=True, eq=True)
+class GuruInsiderTradesData:
+    """Class for Gurufocus Insider Trades Output"""
+    token: str
+    ticker: str
+    ddr_dict: dict = field(init=False, repr=False, default=None)
+
+    def __post_init__(self):
+        self.ddr_dict = self._guru_api()
+
+
+    def _guru_api(self):
+
+        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/insider'
+
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
+
+
+@dataclass(init=True, repr=True, eq=True)
+class GuruExecutivesData:
+    """Class for Gurufocus Executives Output"""
+    token: str
+    ticker: str
+    ddr_list: dict = field(init=False, repr=False, default=None)
+
+    def __post_init__(self):
+        self.ddr_list = self._guru_api()
+
+
+    def _guru_api(self):
+
+        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/executives'
+
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
