@@ -72,3 +72,21 @@ class GuruFinancialHistory:
 
         return df_0
 
+
+@dataclass(init=True, repr=True, eq=True)
+class GuruAnalystEstimatesData:
+    """Class for Gurufocus Analyst Estimates Data Output"""
+    token: str
+    ticker: str
+    ddr_dict: dict = field(init=False, repr=False, default=None)
+
+    def __post_init__(self):
+        self.ddr_dict = self._guru_api()
+
+
+    def _guru_api(self):
+
+        url = f'https://api.gurufocus.com/public/user/{self.token}/stock/{self.ticker}/analyst_estimate'
+
+        api_call = ap.guru_api_get(url, ticker=self.ticker, timeout=10)
+        return api_call
